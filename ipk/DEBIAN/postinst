@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# SPDX-License-Identifier: GPL-2.0
+# Copyright (C) 2020-present Dorik1972 aka Pepsik =)
+
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+LRED='\033[0;31m'
+NC='\033[0m' # No Color
+
+PluginName="IPTVarchive"
+pyver=$(python -V 2>&1 | cut -d\  -f2 | awk -F "." '{print $1$2}')
+destination="/usr/lib/enigma2/python/Plugins/Extensions/$PluginName"
+cp -a $destination/$pyver/. $destination/ > /dev/null 2>&1
+
+if [ $? -eq 0 ];then
+    echo $'27\n38\n39\n310\n311\n' | xargs -I{} rm -fr $destination/{}
+    find . -name "enigma2-plugin-extensions-$PluginName_*.*" -type f -delete
+    cur_year=$(date +'%Y')
+    echo $'\n'
+    echo -e "${GREEN}${PluginName} plugin installed successfully${NC}"
+    echo -e "${YELLOW}2020-$cur_year (c)Dorik1972${NC}"
+    type systemctl > /dev/null 2>&1 && exit 0 || { echo -e >&2 "Restarting GUI ....."; init 4; init 3; exit 0; }
+else
+    echo -e "\n${LRED}An error occurred while installing ${PluginName}\nPlugin not installed!${NC}"
+    exit 1
+fi

@@ -1,0 +1,14 @@
+#!/bin/sh
+YELLOW='\033[0;33m'
+LRED='\033[0;31m'
+NC='\033[0m' # No Color
+
+if [ -f /etc/image-version ]; then
+    image=$(cat /etc/image-version | grep -iF "creator" | cut -d"=" -f2 | xargs)
+elif [ -f /etc/issue ]; then
+    image=$(cat /etc/issue | head -n1 | awk '{print $1;}')
+else
+    image=''
+fi
+[[ ! -z "$image" ]] && echo -e "${YELLOW}$image${NC} image detected"
+exit 0

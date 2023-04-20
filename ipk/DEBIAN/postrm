@@ -1,0 +1,14 @@
+#!/bin/sh
+[ "$1" != "upgrade" ] || exit 0
+cat << _EOS-1
+********************************************
+       Removing IPTV Archive plugin
+********************************************
+_EOS-1
+rm -r /usr/lib/enigma2/python/Plugins/Extensions/IPTVarchive
+cat << _EOS-1
+********************************************
+      IPTV Arcvive plugin uninstalled
+********************************************
+_EOS-1
+exit 0

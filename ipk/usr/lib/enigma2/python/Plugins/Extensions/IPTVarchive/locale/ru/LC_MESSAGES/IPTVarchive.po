@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IPTVarchive\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-17\n"
+"PO-Revision-Date: 2019-12-09 17:49+0100\n"
+"Last-Translator: Vasiliks <vasiliks@narod.ru>\n"
+"Language-Team: Vasiliks\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Language: ru_RU\n"
+"X-Generator: Poedit 2.2.4\n"
+
+msgid "IPTV Archive"
+msgstr "IPTV Архив"
+
+msgid "View the archive of IPTV broadcasts"
+msgstr "Просмотр архивов IPTV трансляций"
+
+msgid "Archive for"
+msgstr "Архив за"
+
+msgid "%s\n\nStop playback and exit plugin?"
+msgstr "%s\n\nОстановить воспроизведение и выйти из плагина?"
+
+msgid "The TMBD plugin is not installed!\nPlease install it."
+msgstr "TMBD плагин не установлен!\nПожалуйста, установите его."
+
+msgid "TMBD Search"
+msgstr "TMBD поиск"
+
+msgid "No archive"
+msgstr "Нет архива"
+
+msgid "There are no archive entries for this channel satisfying the conditions of a given search depth"
+msgstr "Отсутствуют архивные записи по данному каналу удовлетворяющие условиям заданной глубины поиска"
+
+msgid "There are no archive entries for this channel"
+msgstr "Нет архивных записей по данному каналу"
+
+msgid "Error generating request URL for receiving EPG archive broadcasts"
+msgstr "Ошибка формирования URL запроса для получения EPG архивных трансляций"
+
+msgid "Error getting archive"
+msgstr "Ошибка получения архива"
+
+msgid  "Can't download the EPG data.\nFailed to reach a server or the API server couldn't fulfill the request"
+msgstr "Не удается загрузить данные EPG.\nНе удалось связаться с сервером или сервер API не смог выполнить запрос"
+
+msgid  "EPG data parsing error"
+msgstr "Ошибка парсинга EPG"
+
+msgid "No access to archive"
+msgstr "Архив не доступен"
+
+msgid "Not IPTV Channel. No access to archive"
+msgstr "Не IPTV-канал. Архив не доступен"
+
+msgid "Channel Selection"
+msgstr "Выбор канала"
+
+msgid "Unknown IPTV provider. No access to archive"
+msgstr "Неизвестный IPTV-провайдер. Архив не доступен"
+
+msgid "Wait ..."
+msgstr "Подождите ..."
+
+msgid "Wait for load archive..."
+msgstr "Подождите загрузки архива ..."
+
+msgid "Description not available"
+msgstr "Описание не доступно"
+
+msgid "monday"
+msgstr "понедельник"
+
+msgid "tuesday"
+msgstr "вторник"
+
+msgid "wednesday"
+msgstr "среду"
+
+msgid "thursday"
+msgstr "четверг"
+
+msgid "friday"
+msgstr "пятницу"
+
+msgid "saturday"
+msgstr "субботу"
+
+msgid "sunday"
+msgstr "воскресенье"
+
+msgid "Fake Events"
+msgstr "Ложные события"
+
+msgid "Gluing titles"
+msgstr "Cклейка названий"
