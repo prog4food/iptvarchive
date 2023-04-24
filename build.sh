@@ -1,7 +1,7 @@
 #!/bin/sh
 # Extract: dpkg-deb -R <file>.ipk
 BDIR=.
-PKG=enigma2-plugin-extensions-iptvarchive_2.0.3_all
+PKG=enigma2-plugin-extensions-iptvarchive_2.0.3_all_foss
 
 # Pre clean
 rm -r "$BDIR/${PKG}.ipk" > /dev/null 2>&1

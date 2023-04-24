@@ -41,16 +41,20 @@ except ImportError:
     import xml.etree.ElementTree as ET
 from xml.sax.saxutils import unescape
 from hashlib import md5
+import _xxh32
+
+xxh32 = _xxh32.xxh32()
 
 try:
     from Plugins.Extensions.E2m3u2bouquet.e2m3u2bouquet import CFGPATH
 except ImportError:
     CFGPATH = None
 
-__author__ = 'alex1992, Vasiliks, Dorik1972'
+__author__ = 'alex1992, Vasiliks, Dorik1972, prog4food'
 __version__ = '2.03'
 __date__ = '2018-08-15'
 __updated__ = '2020-11-22'
+__foss_updated__ = '2023-04-20'
 
 currTime = lambda: int(round(time.time()))
 myStartTime = 0     # save last startTime
@@ -187,7 +191,7 @@ def getArchiveUrl(url, title=''):
     # itv.live & glanz & Other flussonic type with catchup-type="flussonic"
     elif any(x in url for x in ['.itv.', 'cdn.wf', '.ottg.']):
         url = parsed_url._replace(path='%s/index-%d-%d.m3u8' % (splittedpath[1], myStartTime, myDuration))
-    # tv.team & 1cent & shura & ottclub & edem & shara.club & fox-tv & Other with catchup="shift" or catchup="append"
+    # tv.team & 1cent & shura & ottclub & it999 & shara.club & fox-tv & Other with catchup="shift" or catchup="append"
     else:
         # tv.team
         if any(x in url for x in ['tv.team', 'troya.tv, 1usd.tv']) and 'static' in splittedpath: #RTMP Enigma2 playlist
@@ -479,8 +483,8 @@ class iptvArchiveSelection(EPGSelection):
                           '.crd-s.'     : ('iptvx.one', 3),  # crdru.net
                           '/live/s.'    : ('shara.club', 2), # shara.club
                           '/live/u.'    : ('ipstream', 3),   # ipstream.one
-                          '/iptv/'      : ('edem', 3),       # edem.tv (ilook.tv)
-                          '.ottg.'      : ('ottg', 7),       # glanz (ottg.tv)
+                          '/iptv/'      : ('it999', 3),      # it999.tv (ilook.tv)
+                          '.ottg.'      : ('iptvx.one', 7),  # glanz (ottg.tv)
                           '.fox-tv.'    : ('fox-tv', 5),     # fox-tv.fun
                           '.iptv.'      : ('online', 1),     # iptv.online
                           '.mymagic.'   : ('magic', 7),      # mymagic.tv
@@ -547,15 +551,19 @@ class iptvArchiveSelection(EPGSelection):
                 data = urlencode({'type': 'epg',
                                   'ch'  : params['sapp_tvgid'], }).encode('utf-8')
                 epgUrl = Request('%s://%s/get/' % (parsed_url.scheme, 'api.' + '.'.join(parsed_url.hostname.split('.')[1:])), data, HEADERS)
-            # For e2m3u2b compatibility with EPG OTT-play by Alex
-            elif self.provider in ('edem', 'app-greatiptv', 'iptvx.one', 'fox-tv', 'ottg', 'antifriz', 'only4'
-                                     'bcu', 'magic', 'uz-tv', 'shara-tv', 'propg.net', 'viplime') and 'sapp_tvgid' in params:
-                epgUrl = Request('http://epg.ott-play.com/%s/epg/%s.json' % (self.provider, quote(params['sapp_tvgid'])), headers=HEADERS)
+            # For e2m3u2b compatibility with OTT-play FOSS EPG
+            elif self.provider in ('it999', 'app-greatiptv', 'iptvx.one', 'only4', 'bcu', 'propg.net'
+                                  # нет поддержки
+                                  # 'fox-tv', 'antifriz', 'magic', 'uz-tv', 'shara-tv', 'viplime'
+                                  ) and 'sapp_tvgid' in params:
+                xxh32.__init__(data=params['sapp_tvgid'])
+                epgUrl = Request('http://epg.ottp.eu.org/%s/epg/%s.json' % (self.provider, xxh32.intdigest()), headers=HEADERS)
             # The rest for compatibility if we do not use e2m3u2b and there is no tvg-id.
             # We are looking for by name in EPG in OTT-play by Alex
             else:
-                epgUrl = Request('http://epg.ott-play.com/m3u/ge2.php', urlencode({'channel': chName}).encode('utf-8'), HEADERS)
-
+                # TODO: Адаптировать
+                # epgUrl = Request('http://epg.ott-play.com/m3u/ge2.php', urlencode({'channel': chName}).encode('utf-8'), HEADERS)
+                pass
             try:
                 resp = urlopen(epgUrl, timeout=5)
                 if DEBUG:
